@@ -22,8 +22,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     //initialize
     m_leftMotor = new CANSparkMax(leftDeviceID, MotorType.kBrushless);
-    m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless); 
- 
+    m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
+    m_leftMotor.restoreFactoryDefaults();
+    m_rightMotor.restoreFactoryDefaults();
   }
 
   @Override

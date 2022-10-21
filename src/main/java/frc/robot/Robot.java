@@ -11,8 +11,8 @@ public class Robot extends TimedRobot {
   /*Class Creation
     Replace = 1 and = 2 with the designated CAN motor
   */ 
-  private static final int leftDeviceID = 1; 
-  private static final int rightDeviceID = 2;
+  private static final int leftDeviceID = 14; 
+  private static final int rightDeviceID = 15;
   private CANSparkMax m_leftMotor;
   private CANSparkMax m_rightMotor; 
   XboxController controller = new XboxController(0);
@@ -29,14 +29,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() { 
-    //motor go brrrrrrrrrr when A key pressed
-    if (controller.getAButton()) {
-      m_rightMotor.set(0.5);
-      m_leftMotor.set(0.5);  
+    //motor spins when trigger initiated 
+    if (controller.getLeftTriggerAxis() > 0.1) {
+      m_rightMotor.set(controller.getLeftTriggerAxis());
+      m_leftMotor.set(controller.getLeftTriggerAxis()); 
     } 
-    else{
-      m_rightMotor.set(0);
-      m_leftMotor.set(0);  
-    }
-  } 
+    if (controller.getRightTriggerAxis() > 0.1){
+      m_rightMotor.set(-1 * controller.getRightTriggerAxis());
+      m_leftMotor.set(-1 * controller.getRightTriggerAxis());
+    } 
+  }
 } 

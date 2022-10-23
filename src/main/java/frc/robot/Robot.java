@@ -1,5 +1,4 @@
-package frc.robot; 
-
+package frc.robot;
 //Api
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController; 
@@ -9,34 +8,39 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Robot extends TimedRobot { 
 
   /*Class Creation
-    Replace = 1 and = 2 with the designated CAN motor
+    Replace = '14' and = '15' with the designated CAN motor
   */ 
-  private static final int leftDeviceID = 14; 
-  private static final int rightDeviceID = 15;
-  private CANSparkMax m_leftMotor;
-  private CANSparkMax m_rightMotor; 
+  private static final int firstStepID = 15; 
+  private static final int secondStepID = 15;
+  private static final int shooterID = 15;
+
+  private CANSparkMax firstStep;
+  private CANSparkMax secondStep; 
+  private CANSparkMax shooter;
   XboxController controller = new XboxController(0);
 
 
   @Override
   public void robotInit() {
     //initialize
-    m_leftMotor = new CANSparkMax(leftDeviceID, MotorType.kBrushless);
-    m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
-    m_leftMotor.restoreFactoryDefaults();
-    m_rightMotor.restoreFactoryDefaults();
+    firstStep = new CANSparkMax(firstStepID, MotorType.kBrushless);
+    secondStep = new CANSparkMax(secondStepID, MotorType.kBrushless);
+    shooter = new CANSparkMax(shooterID, MotorType.kBrushless);
+
+    firstStep.restoreFactoryDefaults();
+    secondStep.restoreFactoryDefaults();
+    shooter.restoreFactoryDefaults();
   }
 
   @Override
   public void teleopPeriodic() { 
-    //motor spins when trigger initiated 
+    //motor spins when trigger initiated
     if (controller.getLeftTriggerAxis() > 0.1) {
-      m_rightMotor.set(controller.getLeftTriggerAxis());
-      m_leftMotor.set(controller.getLeftTriggerAxis()); 
+      firstStep.set(controller.getLeftTriggerAxis());
+      secondStep.set(controller.getLeftTriggerAxis()); 
     } 
     if (controller.getRightTriggerAxis() > 0.1){
-      m_rightMotor.set(-1 * controller.getRightTriggerAxis());
-      m_leftMotor.set(-1 * controller.getRightTriggerAxis());
-    } 
+      shooter.set(-2.5);
+    }
   }
 } 
